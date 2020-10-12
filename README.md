@@ -5,7 +5,7 @@ MEPhI 2020
 
 # About
 
-We are the gang of 4 ( @meyakovenkoj @zumvanrin @yurkovkirill @DyadyaRodya )
+We are the gang of 4 ( [https://github.com/meyakovenkoj](@meyakovenkoj) [https://github.com/zumvanrin](@zumvanrin) [https://github.com/yurkovkirill](@yurkovkirill) [https://github.com/DyadyaRodya](@DyadyaRodya) )
 The aim of this project is to find russian spy/spies using data about people movement during a some period according to informaton delivered by Airlines.
 
 # Data
