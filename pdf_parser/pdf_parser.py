@@ -55,15 +55,15 @@ def check_time(str_time):
 
 def get_flight_aircraft(str_all):
     res = re.search(
-        r'\d\d\:\d\d(\+1)? ((\d|\w|\*)+) ((\d|\w)+) \d+H\d+M', str_all)
+        r'\d\d\:\d\d(\+\-?\d)? ((\d|\w|\*)+) ((\d|\w)+) \d+H\d+M', str_all)
     if res != None:
         return res.group(2), res.group(4)
 
 
 def check_airport(str_all):
-    res = re.match(r'(^(FROM|TO): (.+) ?, ?(.+) (...))', str_all)
+    res = re.match(r'(^(FROM|TO): ((\w|\s)+) ?,? ?(.*) (...))', str_all)
     if res != None:
-        return res.group(2), res.group(3).strip(), res.group(4).strip(), res.group(5)
+        return res.group(2), res.group(3).strip(), res.group(5).strip(), res.group(6)
 
 
 # print(check_time('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
@@ -97,32 +97,40 @@ def add_airport(dist, airports):
 
 
 if __name__ == "__main__":
+    # line_count = 0
     airports = {}
     skip_list = ['Validity Days Dep', 'Time', 'Arr',
                  'Flight Aircraft Travel', 'Consult your travel agent for details', '', 'Operated by']
 
     from_id = 0
     to_id = 0
-
-    with open('orig_data/SkyTeam_Timetable.txt', 'r') as fin:
-        line = 'a'
-        while line != '':
-            line = fin.readline()
-            if line.strip() not in skip_list and 'Operated by' not in line:
-                dist = check_airport(line)
-                if dist != None:
-                    if 'FROM' in dist[0]:
-                        from_id = add_airport(dist, airports)
-                        continue
-                    else:
-                        to_id = add_airport(dist, airports)
-                        continue
-                fdate = date_parse(line)
-                week = check_week(line)
-                ftime = check_time(line)
-                flight_aircraft = get_flight_aircraft(line)
-                t_time = convert_time(line)
-                print(from_id, to_id, str(fdate[0]), str(fdate[1]), week,
-                      str(ftime[0]), str(ftime[1]), flight_aircraft[0], flight_aircraft[1], t_time, sep=';')
-
-    print(airports)
+    with open('orig_data/out/skyteam_timetable.csv', 'w') as fout:
+        print('from_id', 'to_id', 'from_date', 'til_date', 'week',
+              'dep_time', 'arr_time', 'flight', 'aircraft', 'travel_time', sep=';', file=fout)
+        with open('orig_data/SkyTeam_Timetable.txt', 'r') as fin:
+            line = 'a'
+            while line != '':
+                line = fin.readline()
+                # line_count += 1
+                # print(line_count)
+                if line.strip() not in skip_list and 'Operated by' not in line:
+                    dist = check_airport(line)
+                    if dist != None:
+                        if 'FROM' in dist[0]:
+                            from_id = add_airport(dist, airports)
+                            continue
+                        else:
+                            to_id = add_airport(dist, airports)
+                            continue
+                    fdate = date_parse(line)
+                    week = check_week(line)
+                    ftime = check_time(line)
+                    flight_aircraft = get_flight_aircraft(line)
+                    t_time = convert_time(line)
+                    print(from_id, to_id, str(fdate[0]), str(fdate[1]), week,
+                          str(ftime[0]), str(ftime[1]), flight_aircraft[0], flight_aircraft[1], t_time, sep=';', file=fout)
+    with open('out/airports.csv', 'w') as fout:
+        print('code', 'city', 'country', sep=';', file=fout)
+        for each in airports.keys():
+            print(each, airports[each][0], airports[each]
+                  [1], sep=';', file=fout)
