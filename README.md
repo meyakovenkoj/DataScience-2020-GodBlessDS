@@ -12,4 +12,5 @@ The aim of this project is to find russian spy/spies using data about people mov
 
 To use this project you should load original data from [source](https://drive.google.com/drive/folders/19bCT5pKF-QnfW05FW0Eb2dUsMrrnbUSD) to path "./orig_data/" (It didn't load to GitHub because of its weight ~1Gb)
 
+Parsed data and another heavy stuff [here](https://yadi.sk/d/MrEP6moVlhLo5g?w=1)
 
