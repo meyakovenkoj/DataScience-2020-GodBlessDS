@@ -1,4 +1,4 @@
-# depend on fucking .tab file, because there are colunm names and column contet not separated by anything but human logic
+# depend on .tab file, because there are colunm names and column contet not separated by anything but human logic
 # so if you want to recognize them you have to set column sizes depend on what you see in different srtings of .tab file
 COL_SIZES = [60, 12, 12, 12, 12, 12, 6, 6, 6, 6, 6, 18, 12, 6, 6, 6, 6, 12, 24, 36, 60] 
 
