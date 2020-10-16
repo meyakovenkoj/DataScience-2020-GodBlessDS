@@ -14,3 +14,16 @@ To use this project you should load original data from [source](https://drive.go
 
 Parsed data and another heavy stuff [here](https://yadi.sk/d/MrEP6moVlhLo5g?w=1)
 
+# Tools
+
+To clean your csv file from duplicate lines you can use `csv_cleaner`
+Usage:
+
+```bash
+python3 csv_cleaner.py <input_file>
+```
+
+The out put will be like `<input_file>.clean.csv`
+
+
+
