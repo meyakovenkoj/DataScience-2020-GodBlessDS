@@ -21,12 +21,12 @@ if __name__ == "__main__":
                         line = line[lenth:]
                         if j not in EXCLUDE_COL_NUM:
                                 col_content = col_content.strip()
-                                if not col_content:
+                                if not col_content or col_content == 'N/A':
                                         if not i:
                                                 unnamed_columns += 1
                                                 col_content = 'UnnamedColumn' + str(unnamed_columns)
                                         else:
-                                                col_content = 'Null'
+                                                col_content = ''
                                 if not new_line:
                                         new_line = col_content
                                 else:
