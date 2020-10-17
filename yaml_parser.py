@@ -9,9 +9,9 @@ fr = ''
 status = ''
 to = ''
 first_line = 1
-result_file = open('SkyTeam-Exchange.csv', 'w')
+result_file = open('SkyTeam-Exchange2.csv', 'w')
+result_file.write('Date,Plane,cardnumber,Class,actFare,actDeparture,Status,actArrival\n')
 with open('SkyTeam-Exchange.yaml') as fileobject:
-    writer = csv.writer(result_file, delimiter=",")
     for line in fileobject:
         yaml_line = yaml.safe_load(line)
         key = list(yaml_line.keys())[0]
