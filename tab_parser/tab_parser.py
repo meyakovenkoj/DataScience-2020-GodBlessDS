@@ -21,7 +21,13 @@ if __name__ == "__main__":
                         line = line[lenth:]
                         if j not in EXCLUDE_COL_NUM:
                                 col_content = col_content.strip()
-                                if not col_content or col_content == 'N/A':
+                                if not j: #фио надо разделить
+                                        if not i: # имена колонок
+                                                col_content = 'famil;name;otchestvo'
+                                        else: # данные
+                                                lst = col_content.split()
+                                                col_content = lst[0] + ';' + lst[1] + ';' + lst[2]
+                                elif not col_content or col_content == 'N/A':
                                         if not i:
                                                 unnamed_columns += 1
                                                 col_content = 'UnnamedColumn' + str(unnamed_columns)
