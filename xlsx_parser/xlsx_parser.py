@@ -24,8 +24,8 @@ if __name__ == "__main__":
 				PassengerSex = sh.cell(2,0).value
 				TicketNumber = sh.cell(12,4).value
 				FlightNumber = sh.cell(4,0).value
-				FlightDate = sh.cell(10,0).value
-				FlightTime = sh.cell(10,2).value
+				FlightDate = sh.cell(8,0).value
+				FlightTime = sh.cell(8,2).value
 				Destination = sh.cell(4,7).value
 				From = sh.cell(4,3).value
 				DestinationAbr = sh.cell(6,7).value
