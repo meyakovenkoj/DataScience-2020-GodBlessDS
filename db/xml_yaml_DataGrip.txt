@@ -1,0 +1,42 @@
+CREATE TABLE "users" (
+  "userid" int PRIMARY KEY,
+  "firstname" varchar,
+  "lastname" varchar
+);
+
+CREATE TABLE "cards" (
+  "userid" int,
+  "cardnumber" varchar,
+  "bonusprogrammName" varchar,
+  PRIMARY KEY ("cardnumber")
+);
+
+CREATE TABLE "Ticket" (
+  "cardnumber" varchar,
+  "flightCode" varchar,
+  "Class" char(1)
+);
+
+CREATE TABLE "Flight" (
+  "cardnumber" varchar,
+  "flightCode" varchar,
+  "Date" varchar,
+  "Departure" varchar,
+  "Arrival" varchar
+);
+
+ALTER TABLE "cards" ADD FOREIGN KEY ("userid") REFERENCES "users" ("userid");
+
+ALTER TABLE "Ticket" ADD FOREIGN KEY ("cardnumber") REFERENCES "cards" ("cardnumber");
+
+ALTER TABLE "Flight" ADD FOREIGN KEY ("cardnumber") REFERENCES "cards" ("cardnumber");
+
+
+
+SELECT * FROM Ticket
+
+
+DROP table "users"
+DROP table "cards"
+DROP table "Ticket"
+DROP table "Flight"
