@@ -27,13 +27,14 @@ Table flight {
   travel_time timestamp
  }
  
-Table json_flight {
+Table cur_flight {
   id int [pk]
   fl_date date
   codeshare boolean
   arrival varchar
   departure varchar
   flight_code varchar
+  fl_id int [ref: > flight.id]
 }
 
 Table profile {
@@ -65,9 +66,10 @@ Ref: flight.from_id > airport.code
 Ref: flight.to_id > airport.code
 Ref: flight.type > aircraft.type
 Ref: loyality.pr_id > profile.id
-Ref: profile_fl.fl_id > json_flight.id
+Ref: profile_fl.fl_id > cur_flight.id
 Ref: profile_fl.pr_id > profile.id
-Ref: json_flight.arrival > airport.code
-Ref: json_flight.departure > airport.code
+Ref: cur_flight.arrival > airport.code
+Ref: cur_flight.departure > airport.code
+
 
 
