@@ -21,8 +21,8 @@ with open('PointzAggregator-AirlinesData.xml') as xml_data:
         first_part.append(user_root.xpath("./cards/@type")[0])
         if len(list(user_root.iter('card'))) == 0:
             second_part.clear()
-            second_part = ['NULL', 'NULL', 'NULL']
-            third_part = ['NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL']
+            second_part = ['', '', '']
+            third_part = ['', '', '', '', '', '']
             row = first_part + second_part + third_part
             #print(row)
             writer.writerow(row)
@@ -35,7 +35,7 @@ with open('PointzAggregator-AirlinesData.xml') as xml_data:
                 second_part.append(card_root.xpath("./activities/@type")[0])
                 if len(list(card_root.iter('activity'))) == 0:
                     third_part.clear()
-                    third_part = ['NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL','NULL']
+                    third_part = ['', '', '', '', '', '','']
                     row = first_part + second_part + third_part
                     #print(row)
                     writer.writerow(row)
@@ -49,7 +49,7 @@ with open('PointzAggregator-AirlinesData.xml') as xml_data:
                         third_part.append((activity_root.xpath("./Departure/text()")[0]).upper())
                         third_part.append((activity_root.xpath("./Arrival/text()")[0]).upper())
                         third_part.append(activity_root.xpath("./Fare/text()")[0])
-                        third_part.append('NULL')#for Class
+                        third_part.append('')#for Class
                         row = first_part + second_part + third_part
                         #print(row)
                         writer.writerow(row)
