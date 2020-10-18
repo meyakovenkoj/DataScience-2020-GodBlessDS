@@ -2,6 +2,7 @@ import re
 import yaml
 
 flights = []
+flight = []
 row = ''
 date = ''
 flightCode = ''
@@ -9,8 +10,9 @@ fr = ''
 status = ''
 to = ''
 first_line = 1
-result_file = open('SkyTeam-Exchange.csv', 'w')
-result_file.write('Date,flightCode,cardnumber,Class,Fare,Departure,Arrival\n')
+flight_file = open('YAML_flight.csv', 'w')
+flight_row = []
+flight_file.write('cardnumber,flightCode,Date,Departure,Arrival,Fare,Class\n')
 with open('SkyTeam-Exchange.yaml') as fileobject:
     for line in fileobject:
         yaml_line = yaml.safe_load(line)
@@ -21,15 +23,17 @@ with open('SkyTeam-Exchange.yaml') as fileobject:
         elif key != 'FF' and not value:
             flightCode = key
         elif key != 'FF' and key != 'FROM' and key != 'STATUS' and key != 'TO' and value:
-            s = key+','+value['CLASS']+','+value['FARE']
-            flights.append(s)
+            flight.clear()
+            flight.append(key)
+            flight.append(value['FARE']) 
+            flight.append(value['CLASS'])
+            flights.append(flight)
         elif key == 'FROM':
-            fr = value.upper()
+            from_ = value.upper()
         elif key == 'TO':
             to = value.upper()
             for i in range(len(flights)):
-                row = date+','+flightCode+','+flights[i]+','+fr+','+to+'\n'
-                result_file.write(row)
-                #print(row)
+                row = flights[i][0]+','+flightCode+','+date+','+from_+','+to+','+flights[i][1]+','+flights[i][2]+'\n'
+                flight_file.write(row)
             flights = []
-result_file.close()
+flight_file.close()
