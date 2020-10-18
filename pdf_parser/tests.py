@@ -5,7 +5,7 @@ import datetime
 
 class TestStringMethods(unittest.TestCase):
 
-    test_str = '02 Nov - 07 Dec 12 4 6 23:55 05:25+2 AR7450* 772 13H30M '
+    test_str = '02 Nov - 07 Dec 12 4 6 23:55 05:25+2 AR7450* 772 13H30M'
 
     def test_convert_time(self):
         self.assertEqual(pdf_parser.convert_time(
@@ -28,6 +28,10 @@ class TestStringMethods(unittest.TestCase):
     def test_get_flight_aircraft(self):
         self.assertTupleEqual(pdf_parser.get_flight_aircraft(
             self.test_str), ('AR7450*', '772'))
+
+    # def test_check_airport(self):
+    #     self.assertTupleEqual(pdf_parser.check_airport(
+    #         self.test_str), ('TO', 'Basel/Mulhouse', 'France', 'BSL'))
 
 
 if __name__ == '__main__':

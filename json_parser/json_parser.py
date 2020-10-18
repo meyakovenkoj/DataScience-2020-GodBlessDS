@@ -9,18 +9,18 @@ loyality_id = 0
 
 def n(a):
     if a == None:
-        return 'NULL'
+        return ''
     else:
         return str(a)
 
 
 def print_airport(raw):
     out = ''
-    out += n(raw['Airport']) + ';' + \
+    out += n(raw['Airport']).upper() + ';' + \
         n(raw['City']) + ';' + n(raw['Country'])
     with open('orig_data/out/airports1.csv', 'a') as out_fd:
         print(out, file=out_fd)
-    return n(raw['Airport'])
+    return n(raw['Airport']).upper()
 
 
 def print_flight(raw):
