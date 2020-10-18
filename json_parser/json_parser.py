@@ -44,7 +44,7 @@ def print_loyality(raw):
     out = ''
     out += str(loyality_id) + ';' + str(profile_id) + ';' + \
         n(raw['Status']) + ';' + \
-        n(raw['programm']) + ';' + n(raw['Number']).strip()
+        n(raw['programm']) + ' ' + n(raw['Number']).strip()
     loyality_id += 1
     with open('orig_data/out/loyality.csv', 'a') as out_fd:
         print(out, file=out_fd)
@@ -70,7 +70,7 @@ def print_profile(raw):
 with open('orig_data/out/flights.csv', 'w') as out_fd:
     print('id;fl_date;codeshare;arrival;departure;flight_code', file=out_fd)
 with open('orig_data/out/loyality.csv', 'w') as out_fd:
-    print('id;pr_id;status;programm;number', file=out_fd)
+    print('id;pr_id;status;cardnumber', file=out_fd)
 with open('orig_data/out/profile_fl.csv', 'w') as out_fd:
     print('pr_id;fl_id', file=out_fd)
 with open('orig_data/out/profiles.csv', 'w') as out_fd:
