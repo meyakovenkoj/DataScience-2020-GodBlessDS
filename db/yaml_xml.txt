@@ -9,7 +9,7 @@ Table users as U {
 
 Table cards {
   cardnumber int
-  cardstype varchar
+  //cardstype varchar
   bonusprogrammName varchar
   owner_id int [ref: > U.id]
   Indexes {
