@@ -10,8 +10,8 @@ status = ''
 to = ''
 first_line = 1
 result_file = open('SkyTeam-Exchange.csv', 'w')
+result_file.write('actDate,actPlane,cardnumber,Class,actFare,actDeparture,actArrival\n')
 with open('SkyTeam-Exchange.yaml') as fileobject:
-    writer = csv.writer(result_file, delimiter=",")
     for line in fileobject:
         yaml_line = yaml.safe_load(line)
         key = list(yaml_line.keys())[0]
@@ -24,13 +24,11 @@ with open('SkyTeam-Exchange.yaml') as fileobject:
             s = key+','+value['CLASS']+','+value['FARE']
             flights.append(s)
         elif key == 'FROM':
-            fr = value
-        elif key == 'STATUS':
-            status = value
+            fr = value.upper()
         elif key == 'TO':
-            to = value
+            to = value.upper()
             for i in range(len(flights)):
-                row = date+','+plane+','+flights[i]+','+fr+','+status+','+to+'\n'
+                row = date+','+plane+','+flights[i]+','+fr+','+to+'\n'
                 result_file.write(row)
                 #print(row)
             flights = []
