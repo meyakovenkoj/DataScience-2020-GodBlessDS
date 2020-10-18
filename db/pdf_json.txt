@@ -15,11 +15,11 @@ Table aircraft {
 
 Table flight {
   id int [pk]
-  departure varchar
-  arrival varchar
-  validity_from date
-  validity_to date
-  days varchar
+  from_id varchar
+  to_id varchar
+  from_date date
+  til_date date
+  week varchar
   dep_time timestamp
   arr_time timestamp
   flight_code varchar
@@ -49,7 +49,7 @@ Table profile_fl {
   fl_id int [pk]
 }
 
-Table loyalty {
+Table loyality {
   id int [pk]
   pr_id int
   status varchar
@@ -57,13 +57,14 @@ Table loyalty {
   number int
 }
 
+
 // Creating references
 // You can also define relaionship separately
 // > many-to-one; < one-to-many; - one-to-one
-Ref: flight.arrival > airport.code  
-Ref: flight.departure > airport.code
+Ref: flight.from_id > airport.code  
+Ref: flight.to_id > airport.code
 Ref: flight.type > aircraft.type
-Ref: loyalty.pr_id > profile.id
+Ref: loyality.pr_id > profile.id
 Ref: profile_fl.fl_id > json_flight.id
 Ref: profile_fl.pr_id > profile.id
 Ref: json_flight.arrival > airport.code
