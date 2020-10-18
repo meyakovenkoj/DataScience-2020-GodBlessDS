@@ -61,9 +61,9 @@ def get_flight_aircraft(str_all):
 
 
 def check_airport(str_all):
-    res = re.match(r'(^(FROM|TO): ((\w|\s)+) ?,? ?(.*) (...))', str_all)
+    res = re.match(r'(^(FROM|TO): (.+) ?,(.*) (...))', str_all)
     if res != None:
-        return res.group(2), res.group(3).strip(), res.group(5).strip(), res.group(6)
+        return res.group(2), res.group(3).strip(), res.group(4).strip(), res.group(5)
 
 
 # print(check_time('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
@@ -114,7 +114,9 @@ if __name__ == "__main__":
                 # line_count += 1
                 # print(line_count)
                 if line.strip() not in skip_list and 'Operated by' not in line:
+                    # print(line)
                     dist = check_airport(line)
+
                     if dist != None:
                         if 'FROM' in dist[0]:
                             from_id = add_airport(dist, airports)
@@ -127,9 +129,10 @@ if __name__ == "__main__":
                     ftime = check_time(line)
                     flight_aircraft = get_flight_aircraft(line)
                     t_time = convert_time(line)
+                    # print(line)
                     print(from_id, to_id, str(fdate[0]), str(fdate[1]), week,
                           str(ftime[0]), str(ftime[1]), flight_aircraft[0], flight_aircraft[1], t_time, sep=';', file=fout)
-    with open('out/airports.csv', 'w') as fout:
+    with open('orig_data/out/airports.csv', 'w') as fout:
         print('code', 'city', 'country', sep=';', file=fout)
         for each in airports.keys():
             print(each, airports[each][0], airports[each]
