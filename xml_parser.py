@@ -6,8 +6,8 @@ writer = csv.writer(result_file, delimiter=",")
 first_part = []
 second_part = []
 third_part = []
-row = ['userid','firstname','lastname','cardstype','cardnumber','bonusprogramm',
-'activitiesType','actType','actPlane','actDate','actDeparture','actArrival','actFare','Class']
+row = ['userid','firstname','lastname','cardstype','cardnumber','bonusprogrammName',
+'flightCode','Date','Departure','Arrival','Fare','Class']
 writer.writerow(row)
 
 with open('PointzAggregator-AirlinesData.xml') as xml_data:
