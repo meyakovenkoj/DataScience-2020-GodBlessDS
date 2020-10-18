@@ -1,0 +1,192 @@
+//// -- LEVEL 1
+//// -- Tables and References
+
+// Creating tables
+Table airport {
+  code varchar [pk]
+  city varchar
+  country varchar
+}
+
+Table aircraft {
+  type varchar [pk]
+  name varchar
+}
+
+Table flight {
+  id int [pk]
+  from_id varchar
+  to_id varchar
+  from_date date
+  til_date date
+  week varchar
+  dep_time timestamp
+  arr_time timestamp
+  flight_code varchar
+  type varchar
+  travel_time timestamp
+ }
+ 
+Table cur_flight {
+  id int [pk]
+  fl_date date
+  codeshare boolean
+  arrival varchar
+  departure varchar
+  flight_code varchar
+  fl_id int [ref: > flight.id]
+}
+
+Table profile {
+  id int [pk]
+  nickname varchar
+  sex varchar
+  last_name varchar
+  first_name varchar
+}
+
+Table profile_fl {
+  pr_id int [pk]
+  fl_id int [pk]
+}
+
+Table loyality {
+  id int [pk]
+  pr_id int
+  status varchar
+  programm varchar
+  number int
+}
+
+// xml yaml diagram end
+
+// Creating tables
+Table users as U {
+  id int [pk, increment] // auto-increment
+  firstname varchar
+  lastname varchar
+}
+
+Table cards {
+  cardnumber int
+  //cardstype varchar
+  bonusprogrammName varchar
+  owner_id int [ref: > U.id]
+  Indexes {
+    (cardnumber) [pk]
+  }
+}
+
+Table Flight as Act {
+  cardnumber int [ref: > cards.cardnumber]
+  //activitiesType varchar
+  //actType varchar
+  flightCode varchar
+  Date varchar
+  Departure varchar
+  Arrival varchar
+  Fare varchar
+  Class char[1]
+}
+// xml yaml diagram end
+
+//Razmahnin begin
+Table xlsx_flight {
+usr_id int [pk] 
+TicketNumber varchar
+FlightNumber varchar
+FlightDate date
+FlightTime timestamp
+Destination varchar
+From varchar
+DestinationAbr varchar
+FromAbr varchar
+PNR varchar
+Seat varchar
+Sequence varchar
+PassClass varchar
+}
+Table csv_flight {
+usr_id int [pk] 
+BookingCode varchar
+TicketNumber varchar
+Baggage varchar
+FlightDate date
+FlightTime timestamp
+FlightNumber varchar
+CodeShare varchar
+Destination varchar
+}
+Table csv_profile {
+id int [pk]
+PassengerFirstName varchar
+PassengerSecondName varchar
+PassengerLastName varchar
+PassengerSex varchar
+PassengerBirthDate date
+PassengerDocument varchar
+}
+Table xlsx_profile {
+id int [pk]
+PassengerFirstName varchar
+PassengerSecondName varchar
+PassengerLastName varchar
+PassengerSex varchar
+}
+
+Ref: csv_flight.usr_id > csv_profile.id
+Ref: xlsx_flight.usr_id > xlsx_profile.id
+//Razmahnin end
+
+Table tab_profile {
+id int [pk]
+famil nvarchar(20)
+name nvarchar(20)
+otchestvo nvarchar(20)
+PaxBirthDate date [null]
+TravelDoc nvarchar(12)
+}
+
+Table tab_flight {
+id int [pk]
+DepartDate date
+DepartTime time
+ArrivalDate date
+ArrivalTime time
+Flight char(6)
+CodeSh nvarchar(3)
+From char(3)
+Dest char(3)
+}
+
+Table tab_other {
+Code char(6)
+e_Ticket char(16)
+Meal nvarchar(4) [null]
+TrvCls char(1)
+Fare char(6)
+Baggage nvarchar(3) [null]
+PaxAdditionalInfo nvarchar(24) [null]
+UnnamedColumn1 nvarchar(36) [null]
+AgentInfo nvarchar(60) [null]
+usr_id int [pk]
+flt_id int [pk]
+}
+
+Ref: tab_other.usr_id > tab_profile.id
+Ref: tab_other.flt_id > tab_flight.id
+
+
+// Creating references
+// You can also define relaionship separately
+// > many-to-one; < one-to-many; - one-to-one
+Ref: flight.from_id > airport.code  
+Ref: flight.to_id > airport.code
+Ref: flight.type > aircraft.type
+Ref: loyality.pr_id > profile.id
+Ref: profile_fl.fl_id > cur_flight.id
+Ref: profile_fl.pr_id > profile.id
+Ref: cur_flight.arrival > airport.code
+Ref: cur_flight.departure > airport.code
+
+
