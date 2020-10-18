@@ -1,8 +1,8 @@
-// xml yaml diagram end
+// xml yaml diagram
 
 // Creating tables
 Table users as U {
-  id int [pk, increment] // auto-increment
+  id int [pk]
   firstname varchar
   lastname varchar
 }
@@ -17,7 +17,13 @@ Table cards {
   }
 }
 
-Table Flight as Act {
+Table Ticket {
+  cardnumber int [ref: > cards.cardnumber]
+  flightCode varchar
+  Class char[1]
+}
+
+Table Flight {
   cardnumber int [ref: > cards.cardnumber]
   //activitiesType varchar
   //actType varchar
@@ -26,6 +32,5 @@ Table Flight as Act {
   Departure varchar
   Arrival varchar
   Fare varchar
-  Class char[1]
 }
 // xml yaml diagram end
