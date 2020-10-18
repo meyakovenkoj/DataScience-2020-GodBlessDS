@@ -1,36 +1,35 @@
-// xml yaml diagram
+// xml yaml diagram end
 
 // Creating tables
 Table users as U {
-  id int [pk]
+  userid int [pk] // auto-increment
   firstname varchar
   lastname varchar
 }
 
 Table cards {
-  cardnumber int
+  userid int [ref: > U.userid]
+  cardnumber varchar
   //cardstype varchar
   bonusprogrammName varchar
-  owner_id int [ref: > U.id]
   Indexes {
     (cardnumber) [pk]
   }
 }
 
 Table Ticket {
-  cardnumber int [ref: > cards.cardnumber]
+  cardnumber varchar [ref: > cards.cardnumber]
   flightCode varchar
-  Class char[1]
+  Class char(1)
 }
 
 Table Flight {
-  cardnumber int [ref: > cards.cardnumber]
+  cardnumber varchar [ref: > cards.cardnumber]
   //activitiesType varchar
   //actType varchar
   flightCode varchar
   Date varchar
   Departure varchar
   Arrival varchar
-  Fare varchar
 }
 // xml yaml diagram end
