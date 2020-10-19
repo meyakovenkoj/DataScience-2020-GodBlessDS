@@ -11,8 +11,11 @@ to = ''
 first_line = 1
 flight_file = open('YAML_flight.csv', 'w')
 ticket_file = open('YAML_ticket.csv', 'w')
-flight_file.write('cardnumber,flightCode,Date,Departure,Arrival\n')#,Class)
-ticket_file.write('cardnumber,flightCode,Class\n')#
+
+#profile id = cardnumber
+#flight id = flight id
+flight_file.write('flightCode,Date,Departure,Arrival\n')#,Class)
+ticket_file.write('cardnumber,flightCode,Date,Class\n')#
 with open('SkyTeam-Exchange.yaml') as fileobject:
     for line in fileobject:
         yaml_line = yaml.safe_load(line)
@@ -33,8 +36,8 @@ with open('SkyTeam-Exchange.yaml') as fileobject:
         elif key == 'TO':
             to = value.upper()
             for i in range(len(flights)):
-                flight_file.write(flights[i][0]+','+flightCode+','+date+','+from_+','+to+'\n')
-                ticket_file.write(flights[i][0]+','+flightCode+','+flights[i][1]+'\n')
+                flight_file.write(flightCode+','+date+','+from_+','+to+'\n')
+                ticket_file.write(flights[i][0]+','+flightCode+','+date+','+flights[i][1]+'\n')
                 flight_file.flush()
                 ticket_file.flush()
 
