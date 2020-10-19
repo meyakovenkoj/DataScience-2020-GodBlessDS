@@ -58,37 +58,43 @@ Table loyality {
   number int
 }
 
-// xml yaml diagram end
-
-// Creating tables
+// xml yaml diagram begin
 Table users as U {
-  id int [pk, increment] // auto-increment
+  userid int [pk] // auto-increment
   firstname varchar
   lastname varchar
 }
 
 Table cards {
-  cardnumber int
+  userid int [ref: > U.userid]
+  cardnumber varchar
   //cardstype varchar
   bonusprogrammName varchar
-  owner_id int [ref: > U.id]
   Indexes {
     (cardnumber) [pk]
   }
 }
 
-Table Flight as Act {
-  cardnumber int [ref: > cards.cardnumber]
+Table Ticket {
+  cardnumber varchar [ref: > cards.cardnumber]
+  flightCode varchar
+  Class char(1)
+}
+
+Table Flight {
+  cardnumber varchar [ref: > cards.cardnumber]
   //activitiesType varchar
   //actType varchar
   flightCode varchar
   Date varchar
   Departure varchar
   Arrival varchar
-  Fare varchar
-  Class char[1]
 }
+Ref: "Flight"."Departure" < "airport"."code"
+
+Ref: "Flight"."Arrival" < "airport"."code"
 // xml yaml diagram end
+
 
 //Razmahnin begin
 Table xlsx_flight {
