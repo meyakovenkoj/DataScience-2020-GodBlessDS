@@ -1,7 +1,6 @@
 //Razmahnin begin
 Table xlsx_flight {
 usr_id int [pk] 
-TicketNumber varchar
 FlightNumber varchar
 FlightDate date
 FlightTime timestamp
@@ -9,21 +8,25 @@ Destination varchar
 From varchar
 DestinationAbr varchar
 FromAbr varchar
-PNR varchar
-Seat varchar
-Sequence varchar
+}
+Table xlsx_ticket {
+usr_id int [pk] 
+TicketNumber varchar
+Sequence decimal
 PassClass varchar
 }
 Table csv_flight {
 usr_id int [pk] 
-BookingCode varchar
-TicketNumber varchar
-Baggage varchar
 FlightDate date
 FlightTime timestamp
 FlightNumber varchar
-CodeShare varchar
 Destination varchar
+}
+Table csv_ticket {
+usr_id int [pk] 
+BookingCode varchar
+TicketNumber int
+Baggage varchar
 }
 Table csv_profile {
 id int [pk]
@@ -44,4 +47,6 @@ PassengerSex varchar
 
 Ref: csv_flight.usr_id > csv_profile.id
 Ref: xlsx_flight.usr_id > xlsx_profile.id
+Ref: csv_ticket.usr_id > csv_profile.id
+Ref: xlsx_ticket.usr_id > xlsx_profile.id
 //Razmahnin end
