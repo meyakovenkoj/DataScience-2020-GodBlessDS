@@ -1,6 +1,4 @@
-// xml yaml diagram end
-
-// Creating tables
+// xml yaml diagram begin
 Table users as U {
   userid int [pk] // auto-increment
   firstname varchar
@@ -33,3 +31,7 @@ Table Flight {
   Arrival varchar
 }
 // xml yaml diagram end
+
+Ref: "Flight"."Departure" < "airport"."code"
+
+Ref: "Flight"."Arrival" < "airport"."code"
