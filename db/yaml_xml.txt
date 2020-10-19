@@ -8,7 +8,7 @@ Table users as U {
 Table cards {
   userid int [ref: > U.userid]
   cardnumber varchar
-  //cardstype varchar
+  //cards varchar
   bonusprogrammName varchar
   Indexes {
     (cardnumber) [pk]
@@ -17,12 +17,13 @@ Table cards {
 
 Table Ticket {
   cardnumber varchar [ref: > cards.cardnumber]
-  flightCode varchar
+  flight_id varchar [ref: > Flight.flight_id]
+  Date varchar
   Class char(1)
 }
 
 Table Flight {
-  cardnumber varchar [ref: > cards.cardnumber]
+  flight_id int
   //activitiesType varchar
   //actType varchar
   flightCode varchar
