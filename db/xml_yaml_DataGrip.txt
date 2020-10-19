@@ -17,6 +17,7 @@ GO
 CREATE TABLE [Ticket] (
   [cardnumber] nvarchar(255),
   [flight_id] nvarchar(255),
+  [Date] nvarchar(255),
   [Class] char(1)
 )
 GO
