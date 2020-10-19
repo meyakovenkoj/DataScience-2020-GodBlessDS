@@ -1,29 +1,27 @@
-CREATE TABLE [users] (
+CREATE TABLE [xml_users] (
   [userid] int PRIMARY KEY,
   [firstname] nvarchar(255),
   [lastname] nvarchar(255)
 )
 GO
 
-CREATE TABLE [cards] (
+CREATE TABLE [xml_cards] (
   [userid] int,
   [cardnumber] nvarchar(255),
-  [flight_id] int,
   [bonusprogrammName] nvarchar(255),
   PRIMARY KEY ([cardnumber])
 )
 GO
 
-CREATE TABLE [Ticket] (
+CREATE TABLE [xml_Ticket] (
   [cardnumber] nvarchar(255),
-  [flight_id] nvarchar(255),
-  [Date] nvarchar(255),
+  [flight_id] int,
   [Class] char(1)
 )
 GO
 
-CREATE TABLE [Flight] (
-  [flight_id] int,
+CREATE TABLE [xml_Flight] (
+  [flight_id] int PRIMARY KEY,
   [flightCode] nvarchar(255),
   [Date] nvarchar(255),
   [Departure] nvarchar(255),
@@ -31,18 +29,33 @@ CREATE TABLE [Flight] (
 )
 GO
 
-ALTER TABLE [cards] ADD FOREIGN KEY ([userid]) REFERENCES [users] ([userid])
+ALTER TABLE [xml_cards] ADD FOREIGN KEY ([userid]) REFERENCES [xml_users] ([userid])
 GO
 
-ALTER TABLE [Ticket] ADD FOREIGN KEY ([cardnumber]) REFERENCES [cards] ([cardnumber])
+ALTER TABLE [xml_Ticket] ADD FOREIGN KEY ([cardnumber]) REFERENCES [xml_cards] ([cardnumber])
 GO
 
-ALTER TABLE [Ticket] ADD FOREIGN KEY ([flight_id]) REFERENCES [Flight] ([flight_id])
+ALTER TABLE [xml_Ticket] ADD FOREIGN KEY ([flight_id]) REFERENCES [xml_Flight] ([flight_id])
 GO
 
-ALTER TABLE [airport] ADD FOREIGN KEY ([code]) REFERENCES [Flight] ([Departure])
-GO
 
-ALTER TABLE [airport] ADD FOREIGN KEY ([code]) REFERENCES [Flight] ([Arrival])
-GO
 
+
+
+
+SELECT TOP (10) * FROM xml_users
+SELECT TOP (10) * FROM xml_cards
+SELECT TOP (10) * FROM xml_Ticket
+SELECT TOP (10) * FROM xml_Flight
+SELECT * FROM xml_Flight WHERE cardnumber='DT 302785701'
+
+SELECT * FROM xml_users
+SELECT * FROM xml_cards
+SELECT * FROM xml_Ticket
+SELECT * FROM xml_Flight
+
+SELECT TOP (10) * FROM doc_flight
+DROP table "xml_users"
+DROP table "xml_cards"
+DROP table "xml_Ticket"
+DROP table "xml_Flight"
