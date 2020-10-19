@@ -1,4 +1,4 @@
-Table tab_profile { //[Sirena-export-fixed-part.clean]
+Table tab_profile { //[Sirena-export-fixed-user.clean]
 user_id int [pk, not null]
 famil nvarchar(max)
 name nvarchar(max)
