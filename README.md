@@ -1,4 +1,5 @@
 # DataScience project about detecting spies
+
 MEPhI 2020
 
 ---
@@ -25,5 +26,11 @@ python3 csv_cleaner.py <input_file>
 
 The out put will be like `<input_file>.clean.csv`
 
+# Database
 
+Firstly we supposed that we could unite all our data. But after quick analyze of data structure, we came to the conclusion that obviously we don't need to do that.
+Instead of merging all info about `users` & `tickets` & `flights` we left data from such formats as CSV XML JSON TAB connected in their scope.
 
+We get the database which we will use later.
+
+![](img/airlines.png)
