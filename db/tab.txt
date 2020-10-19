@@ -1,0 +1,38 @@
+Table tab_profile { //[Sirena-export-fixed-part.clean]
+user_id int [pk, not null]
+famil nvarchar(max)
+name nvarchar(max)
+otchestvo nvarchar(max)
+PaxBirthDate date [null]
+TravelDoc varchar(max)
+}
+
+Table tab_flight { //[Sirena-export-fixed-flight.clean]
+flight_id int [pk, not null]
+DepartDate date
+DepartTime time
+ArrivalDate date
+ArrivalTime time
+Flight varchar(max)
+CodeSh varchar(max)
+From varchar(max)
+Dest varchar(max)
+}
+
+Table tab_ticket { //[Sirena-export-fixed-ticket.clean]
+ticket_id int [pk, not null]
+Code nvarchar(max)
+e_Ticket nvarchar(max)
+Meal nvarchar(max)
+TrvCls nvarchar(max)
+Fare nvarchar(max)
+Baggage nvarchar(max) [null]
+PaxAdditionalInfo nvarchar(max) [null]
+UnnamedColumn1 nvarchar(max) [null]
+AgentInfo nvarchar(max) [null]
+user_id int [not null]
+flight_id int [not null]
+}
+
+Ref: tab_ticket.user_id > tab_profile.user_id
+Ref: tab_ticket.flight_id > tab_flight.flight_id
