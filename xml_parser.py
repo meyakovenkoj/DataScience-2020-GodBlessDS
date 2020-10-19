@@ -11,10 +11,14 @@ cards_writer = csv.writer(cards_file, delimiter=",")
 flight_writer = csv.writer(flight_file, delimiter=",")
 ticket_writer = csv.writer(ticket_file, delimiter=",")
 
+#profile id = cardnumber
+#flight id = flight id
+idDict = dict()
+i = 100000
 users_row = ['userid','firstname','lastname']
 cards_row = ['userid','cardnumber','bonusprogrammName']
-flight_row = ['cardnumber','flightCode','Date','Departure','Arrival']#,'Class']
-ticket_row = ['cardnumber', 'flightCode', 'Class']
+flight_row = ['flightCode','Date','flight_id','Departure','Arrival']#,'Class']
+ticket_row = ['cardnumber','flight_id','Class']
 
 users_writer.writerow(users_row)
 cards_writer.writerow(cards_row)
@@ -48,11 +52,20 @@ with open('PointzAggregator-AirlinesData.xml') as xml_data:
                     for activity_root in card_root.iter('activity'):
                         ticket_row.clear()#
                         flight_row.clear()
-                        flight_row.append(cardnumber)
                         ticket_row.append(cardnumber)#
-                        flight_row.append(activity_root.xpath("./Code/text()")[0])
-                        ticket_row.append(activity_root.xpath("./Code/text()")[0])#
-                        flight_row.append(activity_root.xpath("./Date/text()")[0])
+                        flightCode = activity_root.xpath("./Code/text()")[0]
+                        flight_row.append(flightCode)
+                        Date = activity_root.xpath("./Date/text()")[0]
+                        flight_row.append(Date)
+                        key = flightCode+Date
+                        if(key in idDict):
+                            flight_id = idDict[key]
+                        else:
+                            idDict[key] = i
+                            flight_id = i
+                            i += 1
+                        flight_row.append(flight_id)
+                        ticket_row.append(flight_id)
                         flight_row.append((activity_root.xpath("./Departure/text()")[0]).upper())
                         flight_row.append((activity_root.xpath("./Arrival/text()")[0]).upper())
                         ticket_row.append('')#for Class
