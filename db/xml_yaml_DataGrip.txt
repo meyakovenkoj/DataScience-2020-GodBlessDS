@@ -21,9 +21,9 @@ CREATE TABLE [xml_Ticket] (
 GO
 
 CREATE TABLE [xml_Flight] (
-  [flight_id] int PRIMARY KEY,
   [flightCode] nvarchar(255),
   [Date] nvarchar(255),
+  [flight_id] int PRIMARY KEY,
   [Departure] nvarchar(255),
   [Arrival] nvarchar(255)
 )
