@@ -1,42 +1,47 @@
-CREATE TABLE "users" (
-  "userid" int PRIMARY KEY,
-  "firstname" varchar,
-  "lastname" varchar
-);
+CREATE TABLE [users] (
+  [userid] int PRIMARY KEY,
+  [firstname] nvarchar(255),
+  [lastname] nvarchar(255)
+)
+GO
 
-CREATE TABLE "cards" (
-  "userid" int,
-  "cardnumber" varchar,
-  "bonusprogrammName" varchar,
-  PRIMARY KEY ("cardnumber")
-);
+CREATE TABLE [cards] (
+  [userid] int,
+  [cardnumber] nvarchar(255),
+  [flight_id] int,
+  [bonusprogrammName] nvarchar(255),
+  PRIMARY KEY ([cardnumber])
+)
+GO
 
-CREATE TABLE "Ticket" (
-  "cardnumber" varchar,
-  "flightCode" varchar,
-  "Class" char(1)
-);
+CREATE TABLE [Ticket] (
+  [cardnumber] nvarchar(255),
+  [flight_id] nvarchar(255),
+  [Class] char(1)
+)
+GO
 
-CREATE TABLE "Flight" (
-  "cardnumber" varchar,
-  "flightCode" varchar,
-  "Date" varchar,
-  "Departure" varchar,
-  "Arrival" varchar
-);
+CREATE TABLE [Flight] (
+  [flight_id] int,
+  [flightCode] nvarchar(255),
+  [Date] nvarchar(255),
+  [Departure] nvarchar(255),
+  [Arrival] nvarchar(255)
+)
+GO
 
-ALTER TABLE "cards" ADD FOREIGN KEY ("userid") REFERENCES "users" ("userid");
+ALTER TABLE [cards] ADD FOREIGN KEY ([userid]) REFERENCES [users] ([userid])
+GO
 
-ALTER TABLE "Ticket" ADD FOREIGN KEY ("cardnumber") REFERENCES "cards" ("cardnumber");
+ALTER TABLE [Ticket] ADD FOREIGN KEY ([cardnumber]) REFERENCES [cards] ([cardnumber])
+GO
 
-ALTER TABLE "Flight" ADD FOREIGN KEY ("cardnumber") REFERENCES "cards" ("cardnumber");
+ALTER TABLE [Ticket] ADD FOREIGN KEY ([flight_id]) REFERENCES [Flight] ([flight_id])
+GO
 
+ALTER TABLE [airport] ADD FOREIGN KEY ([code]) REFERENCES [Flight] ([Departure])
+GO
 
+ALTER TABLE [airport] ADD FOREIGN KEY ([code]) REFERENCES [Flight] ([Arrival])
+GO
 
-SELECT * FROM Ticket
-
-
-DROP table "users"
-DROP table "cards"
-DROP table "Ticket"
-DROP table "Flight"
