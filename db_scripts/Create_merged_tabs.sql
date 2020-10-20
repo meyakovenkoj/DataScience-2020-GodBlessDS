@@ -52,3 +52,8 @@ CREATE TABLE ticket_merged (
     Cardnumber nvarchar(50) NULL,
 )
  
+ ALTER TABLE flight_merged ADD dest_abr nVARCHAR(50) NULL ;
+GO
+
+ALTER TABLE flight_merged ADD from_abr nVARCHAR(50) NULL ;
+GO
