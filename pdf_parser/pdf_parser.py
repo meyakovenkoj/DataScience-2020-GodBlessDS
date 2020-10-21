@@ -31,22 +31,32 @@ def convert_time(str_time):
         return 0
 
 
-def date_parse(str_date):
-    res = re.match(r'(\d\d) (\w\w\w) - (\d\d) (\w\w\w)', str_date)
+def check_date(str_date):
+    res = re.match(r'(\d{2})\s(\w{3})\s-\s(\d{2})\s(\w{2})', str_date)
     if res != None:
         if res.group(4) == months[0]:
-            return date(2018, months.index(res.group(2)) + 1, int(res.group(1))), date(2019, months.index(res.group(4)) + 1, int(res.group(3)))
-        return date(2018, months.index(res.group(2)) + 1, int(res.group(1))), date(2018, months.index(res.group(4)) + 1, int(res.group(3)))
+            return date(2018, 
+                        months.index(res.group(2)) + 1, 
+                        int(res.group(1))), 
+                   date(2019, 
+                        months.index(res.group(4)) + 1, 
+                        int(res.group(3)))
+        return date(2018, 
+                    months.index(res.group(2)) + 1, 
+                    int(res.group(1))), 
+               date(2018, 
+                    months.index(res.group(4)) + 1, 
+                    int(res.group(3)))
 
 
 def check_week(str_week):
-    res = re.search(r'- \d\d \w\w\w ((\d|\s)+) \d\d\:\d\d', str_week)
+    res = re.search(r'-\s\d{2}\s\w{3}\s((\d|\s)+)\s\d{2}\:\d{2}', str_week)
     if res != None:
         return res.group(1)
 
 
 def check_time(str_time):
-    res = re.findall(r'(\d\d)\:(\d\d)(\+1)?', str_time)
+    res = re.findall(r'(\d{2})\:(\d{2})(\+1)?', str_time)
     if res != []:
         # print(time(int(res[0][0]), int(res[0][1])),
         #       time(int(res[1][0]), int(res[1][1])))
@@ -55,20 +65,20 @@ def check_time(str_time):
 
 def get_flight_aircraft(str_all):
     res = re.search(
-        r'\d\d\:\d\d(\+\-?\d)? ((\d|\w|\*)+) ((\d|\w)+) \d+H\d+M', str_all)
+        r'\d{2}\:\d{2}(\+\-?\d)?\s((\d|\w|\*)+)\s((\d|\w)+)\s\d+H\d+M', str_all)
     if res != None:
         return res.group(2), res.group(4)
 
 
 def check_airport(str_all):
-    res = re.match(r'(^(FROM|TO): (.+) ?,(.*) (...))', str_all)
+    res = re.match(r'(^(FROM|TO):\s(.+)\s?,(.*)\s(...))', str_all)
     if res != None:
         return res.group(2), res.group(3).strip(), res.group(4).strip(), res.group(5)
 
 
 # print(check_time('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
 # print(check_week('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
-# print(date_parse('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
+# print(check_date('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
 # print(convert_time('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
 # print(get_flight_aircraft('01 Nov - 31 Jan 1234567 12:40 14:00 SV1666 320 1H20M'))
 # print(check_airport('FROM: Jeddah , Saudi Arabia JED'))
@@ -124,7 +134,7 @@ if __name__ == "__main__":
                         else:
                             to_id = add_airport(dist, airports)
                             continue
-                    fdate = date_parse(line)
+                    fdate = check_date(line)
                     week = check_week(line)
                     ftime = check_time(line)
                     flight_aircraft = get_flight_aircraft(line)
