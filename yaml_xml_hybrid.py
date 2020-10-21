@@ -70,7 +70,7 @@ with open('SkyTeam-Exchange.yaml') as yaml_data:
                     idDict[key2] = j
                     flight_id = j
                     j += 1
-                flight_file.write(flightCode+','+date+','+str(flight_id)+','+from_+','+to+'\n')
+                flight_file.write(flightCode+','+date+','+str(flight_id)+','+from_+','+to+'\n')#mojno perenesti vishe
                 ticket_file.write(flights[i][0]+','+str(flight_id)+','+flights[i][1]+'\n')
                 flight_file.flush()
                 ticket_file.flush()
