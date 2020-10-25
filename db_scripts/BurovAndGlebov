@@ -1,0 +1,32 @@
+select id, PassengerFirstName, PassengerSecondName, PassengerLastName, PassengerBirthDate, PassengerDocument
+    from csv_user cu where exists(select null from csv_user cu1
+        where (cu1.PassengerBirthDate!=cu.PassengerBirthDate
+                   or cu1.PassengerFirstName!=cu.PassengerFirstName
+                   or cu1.PassengerLastName!=cu.PassengerLastName)
+          and cu1.PassengerDocument=cu.PassengerDocument);
+          
+select * from tab_user where TravelDoc='8248 013778';
+
+
+with v1 as (select xf.Date as fldate, xf.flightCode as fl, a.city as fromcity, a2.city as tocity from xml_flight xf
+    join xml_ticket xt on xf.flight_id = xt.flight_id
+    join xml_card xc on xt.cardnumber = xc.cardnumber
+    join airport a on xf.Departure=a.code
+    join airport a2 on xf.Arrival=a2.code
+where  xc.userid=849496685),
+     v2 as (select tf.DepartDate as fldate,tf.Flight as fl, a.city as fromcity, a2.city as tocity from  tab_ticket tt
+    JOIN tab_flight tf on tf.flight_id = tt.flight_id
+    join airport a on a.code = tf.[From]
+    join airport a2 on a2.code = tf.Dest
+where user_id=52139),
+     v as (select * from v1 union all select * from v2)
+select * from v order by fldate;
+
+select distinct jf.fl_date  as fldate, flight_code as fl, a2.city as fromcity, a.city  as tocity, status
+from json_ticket
+    join json_user ju on json_ticket.usr_id = ju.id
+    join json_flight jf on json_ticket.fl_id = jf.id
+    join airport a on jf.arrival = a.code
+    join airport a2 on a2.code = jf.departure
+where ( ju.id=27300 )
+order by fl_date;
